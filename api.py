@@ -19,7 +19,7 @@ def webhook():
     else:
         return 'Hello', 200
 @app.route('/test', methods=['POST'])
-def webhook():
+def test_webhook():
     return 'Working', 200
 
 @bot.message_handler(commands=['start'])
