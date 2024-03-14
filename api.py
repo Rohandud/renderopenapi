@@ -2,12 +2,13 @@ import telebot
 import requests
 import flask
 import json
+import time
 from py1337x import py1337x
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 bot = telebot.TeleBot('6549292499:AAGmD7uf5R1wgYYgJP8E5yx0okQb7egfQsI', threaded=False)
 torrents = py1337x(proxy='1377x.to', cacheTime=0)
 bot.remove_webhook()
-# bot.set_webhook(url=url)
+bot.set_webhook('https://testrender-o7s9.onrender.com/')
 
 app = flask.Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
