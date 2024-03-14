@@ -6,6 +6,7 @@ from main1 import openairun
 import datetime
 import json
 from py1337x import py1337x
+import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 bot = telebot.TeleBot('6549292499:AAGmD7uf5R1wgYYgJP8E5yx0okQb7egfQsI', threaded=False)
 torrents = py1337x(proxy='1377x.to', cacheTime=0)
