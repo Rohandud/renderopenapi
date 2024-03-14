@@ -10,14 +10,15 @@ bot.remove_webhook()
 # bot.set_webhook(url=url)
 
 app = flask.Flask(__name__)
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def webhook():
-    return 'Hello', 200
-@app.route('/', methods=['POST'])
-def webhook():
-    update = telebot.types.Update.de_json(flask.request.stream.read().decode('utf-8'))
-    bot.process_new_updates([update])
-    return 'ok', 200
+    if flask.request.method == 'POST':
+        update = telebot.types.Update.de_json(flask.request.stream.read().decode('utf-8'))
+        bot.process_new_updates([update])
+        return 'ok', 200
+    else:
+        return 'Hello', 200
+
 
 @bot.message_handler(commands=['start'])
 def start(message):
