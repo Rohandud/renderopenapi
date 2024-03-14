@@ -30,7 +30,7 @@ def getopenai():
     return json_response
 @app.route('/', methods=['POST'])
 def webhook():
-    update = telebot.types.Update.de_json(flask.request.stream.read().decode('utf-8'))
+    update = telebot.types.Update.de_json(request.stream.read().decode('utf-8'))
     bot.process_new_updates([update])
     return 'ok', 200
 
