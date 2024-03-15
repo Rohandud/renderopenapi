@@ -17,9 +17,9 @@ app = flask.Flask(__name__)
 def translate():
     query = flask.request.args.get('query', '')  # /
     if translator.detect(query).lang != 'en':
-        return {"User Query ": query, "Response": translator.translate(query).text}
+        return {"User Query ": query, "Response": translator.translate(query).text, "status": 1}
     else:
-        return {"User Query ": query, "Response": "Already in English"}
+        return {"User Query ": query, "Response": "Already in English", "status": 2}
 
 @app.route('/', methods=['GET', 'POST'])
 def webhook():
