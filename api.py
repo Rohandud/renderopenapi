@@ -5,12 +5,22 @@ import json
 import time
 from py1337x import py1337x
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+from googletrans import Translator
+translator = Translator()
 bot = telebot.TeleBot('6549292499:AAGmD7uf5R1wgYYgJP8E5yx0okQb7egfQsI', threaded=False)
 torrents = py1337x(proxy='1377x.to', cacheTime=0)
 bot.remove_webhook()
 bot.set_webhook('https://testrender-o7s9.onrender.com/')
 
 app = flask.Flask(__name__)
+@app.route('/translate', methods=['GET', 'POST'])
+def translate():
+    query = flask.request.args.get('query', '')  # /
+    if translator.detect(query).lang != 'en':
+        return {"User Query ": query, "Response": translator.translate(query).text}
+    else:
+        return {"User Query ": query, "Response": "Already in English"}
+
 @app.route('/', methods=['GET', 'POST'])
 def webhook():
     if flask.request.method == 'POST':
