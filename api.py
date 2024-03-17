@@ -1,3 +1,4 @@
+import schedule
 import telebot
 import requests
 import flask
@@ -88,7 +89,11 @@ def button_click(call):
         bot.answer_callback_query(call.id, 'You clicked Button 1')
     elif call.data == 'button2':
         bot.answer_callback_query(call.id, 'You clicked Button 2')
-
+def send_hello():
+    bot.send_message(-4164757138, "Hello")
+# Schedule the "send_hello" function to run every 15 minutes
+schedule.every(15).minutes.do(send_hello)
+send_hello()
 # bot.polling(non_stop=1)
         # Running app
 if __name__ == '__main__':
