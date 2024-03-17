@@ -92,7 +92,7 @@ def button_click(call):
 def send_hello():
     bot.send_message(-4164757138, "Hello")
 # Schedule the "send_hello" function to run every 15 minutes
-schedule.every(15).minutes.do(send_hello)
+schedule.every(5).minutes.do(send_hello)
 send_hello()
 # bot.polling(non_stop=1)
         # Running app
