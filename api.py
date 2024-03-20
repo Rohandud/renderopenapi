@@ -8,7 +8,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from googletrans import Translator
 translator = Translator()
 bot = telebot.TeleBot('6549292499:AAGmD7uf5R1wgYYgJP8E5yx0okQb7egfQsI', threaded=False)
-torrents = py1337x(proxy='1337x.to', cacheTime=0)
+torrents = py1337x(proxy='x1337x.se', cacheTime=1)
 bot.remove_webhook()
 bot.set_webhook('https://testrender-o7s9.onrender.com/')
 
