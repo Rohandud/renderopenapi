@@ -8,6 +8,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from googletrans import Translator
 translator = Translator()
 bot = telebot.TeleBot('6549292499:AAGmD7uf5R1wgYYgJP8E5yx0okQb7egfQsI', threaded=False)
+global torrents
 torrents = py1337x(proxy='x1337x.se', cacheTime=1)
 bot.remove_webhook()
 bot.set_webhook('https://testrender-o7s9.onrender.com/')
@@ -36,6 +37,18 @@ def webhook():
 @app.route('/test', methods=['POST'])
 def test_webhook():
     return 'Working', 200
+    
+@bot.message_handler(commands=['changeproxy'])
+def change_proxy(message):
+    global torrents
+    try:
+        # Extract the new proxy from the command
+        new_proxy = message.text.split()[1]
+        # Re-initialize the 'torrents' variable with the new proxy
+        torrents = py1337x(proxy=new_proxy, cacheTime=1)
+        bot.reply_to(message, f"Proxy changed to {new_proxy}")
+    except IndexError:
+        bot.reply_to(message, "Please provide a proxy address.")
 
 @bot.message_handler(commands=['start'])
 def start(message):
