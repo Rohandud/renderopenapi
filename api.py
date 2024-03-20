@@ -8,7 +8,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from googletrans import Translator
 translator = Translator()
 bot = telebot.TeleBot('6549292499:AAGmD7uf5R1wgYYgJP8E5yx0okQb7egfQsI', threaded=False)
-torrents = py1337x(proxy='1377x.to', cacheTime=0)
+torrents = py1337x(proxy='1337x.to', cacheTime=0)
 bot.remove_webhook()
 bot.set_webhook('https://testrender-o7s9.onrender.com/')
 
@@ -48,7 +48,7 @@ def start(message):
   user_name = message.from_user.first_name
   search = message.text.split(' ', 1)[1]
   # bot.reply_to(message, "Searching for "+search)
-  search_result = torrents.search(search)
+  search_result = torrents.search(search, sortBy='time', order='desc')
   search_result = json.dumps(search_result)
   # print(search_result)
   # Assuming search_result is a JSON string
