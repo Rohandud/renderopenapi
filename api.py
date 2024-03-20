@@ -58,28 +58,33 @@ def start(message):
 
 @bot.message_handler(commands=['s'])
 def start(message):
-  user_name = message.from_user.first_name
-  search = message.text.split(' ', 1)[1]
-  # bot.reply_to(message, "Searching for "+search)
-  search_result = torrents.search(search, sortBy='time', order='desc')
-  search_result = json.dumps(search_result)
-  # print(search_result)
-  # Assuming search_result is a JSON string
-  search_result_dict = json.loads(search_result)
-  keyboard = InlineKeyboardMarkup(row_width=1)
-  # Now you can iterate over the items and print only the 'name'
-  name = []
-  for item in search_result_dict['items']:
-    i = 0
-    button_name = "button" + str(i + 1)
-    button_name = InlineKeyboardButton(item['name'], callback_data=item['torrentId'])
-    name.append(item['name'])
-    keyboard.add(button_name)
-    i=+1
-  # Create a single string with each name on a new line
-  names_message = '\n'.join(name)
-  bot.send_message(message.chat.id, 'Please choose:', reply_markup=keyboard)
-  # bot.reply_to(message, names_message)
+  try:
+    user_name = message.from_user.first_name
+    search = message.text.split(' ', 1)[1]
+    # bot.reply_to(message, "Searching for "+search)
+    search_result = torrents.search(search, sortBy='time', order='desc')
+    search_result = json.dumps(search_result)
+    # print(search_result)
+    # Assuming search_result is a JSON string
+    search_result_dict = json.loads(search_result)
+    keyboard = InlineKeyboardMarkup(row_width=1)
+    # Now you can iterate over the items and print only the 'name'
+    name = []
+    for item in search_result_dict['items']:
+        i = 0
+        button_name = "button" + str(i + 1)
+        button_name = InlineKeyboardButton(item['name'], callback_data=item['torrentId'])
+        name.append(item['name'])
+        keyboard.add(button_name)
+        i=+1
+    # Create a single string with each name on a new line
+    names_message = '\n'.join(name)
+    bot.send_message(message.chat.id, 'Please choose:', reply_markup=keyboard)
+  except Exception as e:
+         print("Error:", e)
+         bot.answer_callback_query(message.chat.id)  # Send a 200 OK response to Telegram
+
+
 
 # Define the button click handler
 @bot.callback_query_handler(func=lambda call: True)
